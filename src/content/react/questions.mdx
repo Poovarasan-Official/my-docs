@@ -1,0 +1,434 @@
+---
+title: "React.js Interview Questions and Answers"
+description: "Comprehensive React.js interview questions from basic to advanced with answers and code examples."
+---
+
+# React.js Interview Questions and Answers
+
+This guide covers essential **React.js** interview questions from **basic to advanced**, including **hooks theory with examples**.
+
+## 1. What is React?
+
+**Answer:**
+React is a JavaScript library for building user interfaces, maintained by Facebook. It allows developers to create reusable UI components and manage state efficiently using a virtual DOM.
+
+## 2. What is the Virtual DOM?
+
+**Answer:**
+The Virtual DOM is a `lightweight JavaScript` representation of the `actual DOM.` React updates this virtual DOM before syncing it with the real DOM, improving performance.
+
+## 3. What is JSX?
+
+**Answer:**
+JSX (JavaScript XML) is a syntax extension for JavaScript that allows writing HTML within React code.
+
+**Example:**
+
+```jsx filename="JSXExample.js" copy
+const element = <h1>Hello, JSX!</h1>;
+```
+
+## 4. What is a Fragment in React?
+
+**Answer:**
+A **Fragment** in React allows `grouping multiple elements` without adding an extra node to the **DOM**. It helps avoid unnecessary `<div>` wrappers, which can bloat the structure of the rendered HTML.
+
+### Example:
+
+```jsx filename="FragmentExample.js"{5,8} copy
+import React, { Fragment } from "react";
+
+function MyComponent() {
+  return (
+    <Fragment>
+      <h1>Hello, World!</h1>
+      <p>This is a React Fragment example.</p>
+    </Fragment>
+  );
+}
+export default MyComponent;
+```
+
+Alternatively, you can use the shorthand syntax:
+
+```jsx filename="ShortFragmentExample.js"{3,6} copy
+function MyComponent() {
+  return (
+    <>
+      <h1>Hello, World!</h1>
+      <p>This is a React Fragment example.</p>
+    </>
+  );
+}
+export default MyComponent;
+```
+
+> [!NOTE]
+>
+> Using **Fragments** helps improve performance and maintain a cleaner **DOM structure**.
+
+## 5. What is a Component in React?
+
+**Answer:**
+A component in React is a **reusable**, **self-contained** piece of UI that can be rendered independently. Components allow for code reuse and better organization. They accept **inputs called props** and return **React elements** that describe how a section of the UI should appear. Components can be categorized into:
+
+- **Functional Components**: These are JavaScript functions that accept props and return JSX. They rely on React Hooks for state and lifecycle methods.
+  Do not have state or lifecycle methods but can use **React Hooks** (`useState`, `useEffect`, etc.) to manage state and lifecycle behavior.
+  Easier to read, test, and maintain.
+
+- **Class Components**: These are ES6 classes that extend `React.Component` and include lifecycle methods and state management.
+  Class components is a javascript class that extends to React.Component & uses a render method to return JSX. And have a managing state and lifecycle methods like componentDidMount and componentDidUpdate.
+
+### Example:
+
+```jsx filename="Greeting.js"{1} copy
+function Greeting(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+export default Greeting;
+```
+
+```jsx filename="GreetingClass.js"{3-4} copy
+import React, { Component } from "react";
+
+class Greeting extends Component {
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+export default Greeting;
+```
+
+## 6. What are React Hooks?
+
+**Answer:**
+React Hooks are functions that allow functional components to use **state** and **lifecycle features** without needing class components.
+
+> [!CAUTION]
+>
+> ##### Rules of Hooks:
+>
+> - **Only call hooks at the top level**: Don't call hooks inside loops, conditions, or nested functions.
+> - **Only call hooks from React functions**: Hooks should be used in functional components or custom hooks.
+
+#### Common Hooks:
+
+1. `useState` - Manages local state.
+2. `useEffect` - Handles side effects.
+3. `useContext` - Uses React Context API.
+4. `useCallback` - Memoizes functions.
+5. `useReducer` - Alternative to `useState` for complex state logic.
+6. `useMemo` - Optimizes performance by memoizing values.
+7. `useRef` - Creates a reference to DOM elements.
+
+## 7. What are Props?
+
+Props (short for **properties**) are used to pass data from a **parent component** to a **child component** in React. They are **read-only** and help make components **reusable and dynamic**.
+
+#### Key Features of Props
+
+✅ **Allows data flow from parent to child**\
+✅ **Immutable (cannot be changed by the child component)**\
+✅ **Helps create reusable components**
+
+## Syntax
+
+```jsx
+<MyComponent propName="value" />
+```
+
+### Example: Passing Props in React
+
+#### 1. Parent Component
+
+```jsx filename="App.js" copy
+import React from "react";
+import Greeting from "./Greeting";
+
+function App() {
+  return (
+    <div>
+      <Greeting name="Alice" />
+      <Greeting name="Bob" />
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### 2. Child Component (Receiving Props)
+
+```jsx filename="Greeting.js" copy
+import React from "react";
+
+function Greeting({ name }) {
+  return <h2>Hello, {name}!</h2>;
+}
+
+export default Greeting;
+```
+
+#### Explanation
+
+- `App.js` passes a **name** prop (`Alice` & `Bob`) to the `Greeting` component.
+- `Greeting.js` receives the prop and displays it dynamically.
+- The child component cannot modify the prop; it is **read-only**.
+
+#### Using Default Props
+
+You can set default values for props in case they are not provided.
+
+```jsx
+Greeting.defaultProps = {
+  name: "Guest",
+};
+```
+
+## Summary
+
+✅ **Props allow components to communicate**.\
+✅ **They are immutable** and should not be modified within the child component.\
+✅ **Essential for reusable and modular components**.
+
+Props help build dynamic UI elements and enhance component reusability! 🚀
+
+## 8. What is Prop Drilling?
+
+**Answer:**
+Prop drilling is when data is passed through multiple components that don't directly need it, leading to unnecessary complexity.
+
+## 9. What is the `key` Prop?
+
+The `key` prop is a special attribute in React that helps efficiently update and render lists of components. It provides a unique identity to each element, allowing React to track changes and optimize re-rendering.
+
+#### Why is `key` Important?
+
+- **Efficient Rendering:** Helps React identify which items changed, added, or removed.
+- **Prevents Unnecessary Re-Renders:** Avoids re-creating entire lists unnecessarily.
+- **Improves Performance:** Helps in maintaining component state across re-renders.
+
+#### Example: Using `key` in a List
+
+```jsx filename="KeyExample.js" copy
+import React from "react";
+
+const ItemList = ({ items }) => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default ItemList;
+```
+
+#### Best Practices for `key`
+
+✅ Use **unique IDs** whenever possible (`key={item.id}`).\
+✅ If no ID is available, use **stable indexes**, but avoid if items can be reordered (`key={index}`).\
+✅ Never use **random values** as keys (e.g., `Math.random()`), as it negates React’s optimizations.
+
+#### Key Takeaways
+
+✅ Essential for **efficient re-renders** in dynamic lists.\
+✅ Helps React **track elements** in lists when they change.\
+✅ Always use **stable, unique values** to ensure proper UI updates.
+
+## 10. What are Controlled and Uncontrolled Components?
+
+In React, form inputs can be controlled or uncontrolled depending on how their state is managed.
+
+#### When to Use Each?
+
+- **Use Controlled Components** for forms that require real-time validation, conditional rendering, or integration with React state.
+- **Use Uncontrolled Components** when working with non-React code, simple inputs, or when performance optimization is necessary.
+
+#### Key Differences
+
+| Feature          | Controlled Components                              | Uncontrolled Components                          |
+| ---------------- | -------------------------------------------------- | ------------------------------------------------ |
+| **State**        | Managed by React state                             | Managed by the DOM                               |
+| **Data Flow**    | React state is the source of truth                 | DOM is the source of truth                       |
+| **Value Update** | Via React’s `useState` or `setState`               | Access via refs or reading DOM values            |
+| **Use Case**     | Complex forms, validation, real-time input changes | Simple forms, minimal interaction with form data |
+
+### Example of a Controlled Component
+
+```jsx filename="ControlledComponent.js" copy
+import React, { useState } from "react";
+
+function ControlledComponent() {
+  const [inputValue, setInputValue] = useState("");
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <p>Typed Value: {inputValue}</p>
+    </div>
+  );
+}
+
+export default ControlledComponent;
+```
+
+### Example of an Uncontrolled Component
+
+```jsx filename="UncontrolledComponent.js" copy
+import React, { useRef } from "react";
+
+function UncontrolledComponent() {
+  const inputRef = useRef(null);
+
+  const handleSubmit = () => {
+    alert(`Entered Value: ${inputRef.current.value}`);
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+
+export default UncontrolledComponent;
+```
+
+## Conclusion
+
+Both approaches have their use cases, but controlled components offer more control and are more commonly used in complex React applications.
+
+## 11. What is Lazy Loading?
+
+Lazy loading is a technique in React that allows components to be loaded only when needed, improving performance and reducing the initial bundle size.
+
+#### Why Use Lazy Loading?
+
+- 🚀 **Improves Performance**: Loads only the required components when needed.
+- 📦 **Reduces Initial Bundle Size**: Helps in faster page loads.
+- ⚡ **Efficient Resource Utilization**: Saves bandwidth by avoiding unnecessary code execution.
+
+#### Implementing Lazy Loading in React
+
+React provides `React.lazy` and `Suspense` for implementing lazy loading.
+
+#### Example: Lazy Loading a Component
+
+```jsx filename="App.js" copy
+import React, { Suspense, lazy } from "react";
+
+// Lazy loading the component
+const LazyComponent = lazy(() => import("./LazyComponent"));
+
+function App() {
+  return (
+    <div>
+      <h1>Welcome to Lazy Loading Example</h1>
+      <Suspense fallback={<p>Loading...</p>}>
+        <LazyComponent />
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### Example: Lazy Loaded Component
+
+```jsx filename="LazyComponent.js" copy
+import React from "react";
+
+function LazyComponent() {
+  return <h2>This is a lazily loaded component!</h2>;
+}
+
+export default LazyComponent;
+```
+
+#### Key Takeaways
+
+✅ **Better Performance**: Reduces unnecessary rendering.\
+✅ **Code Splitting**: Helps in optimizing large applications.\
+✅ **Dynamic Imports**: Loads components only when required.
+
+Lazy loading is essential for optimizing React applications, especially when dealing with large codebases! 🚀
+
+## 12. What is a Higher-Order Component (HOC)?
+
+A **Higher-Order Component (HOC)** is a pattern in React that allows reusing component logic by wrapping a component inside another function. It takes a component as input and returns a new enhanced component.
+
+HOCs are **pure functions** that do not modify the original component but return a new component with added functionalities.
+
+#### Why Use HOCs?
+
+- Code reusability and logic abstraction.
+- Enhancing components with additional props.
+- Useful for authentication, logging, and performance optimizations.
+
+## Example of a Higher-Order Component
+
+### Creating a HOC for Authorization
+
+```jsx copy
+import React from "react";
+
+// Higher-Order Component
+const withAuth = (WrappedComponent) => {
+  return class extends React.Component {
+    componentDidMount() {
+      const isAuthenticated = localStorage.getItem("authToken");
+      if (!isAuthenticated) {
+        alert("You need to log in first!");
+      }
+    }
+
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+};
+
+// Regular Component
+const Dashboard = () => {
+  return <h1>Welcome to Dashboard</h1>;
+};
+
+// Wrapped with HOC
+const ProtectedDashboard = withAuth(Dashboard);
+
+export default ProtectedDashboard;
+```
+
+#### Common Use Cases for HOCs
+
+- **Authentication Handling** (Restrict access to pages)
+- **Logging & Analytics** (Track user actions)
+- **Enhancing Props** (Modify or inject props into components)
+- **Code Splitting** (Lazy loading components)
+
+#### Key Points
+
+- HOCs should **not modify the original component**, but return a new one.
+- Naming convention: `withSomething` (e.g., `withAuth`, `withLogging`).
+- Use HOCs wisely; sometimes React Hooks (`useEffect`, `useContext`) are better alternatives.
+
+HOCs are a powerful pattern but should be used when necessary to keep the codebase clean and maintainable. 🚀
+
+## 13. What is Redux?
+
+**Answer:**
+Redux is a state management library that helps manage global state in large applications.
+
+## 14. What is React Router?
+
+**Answer:**
+React Router is a library for handling navigation in React applications.

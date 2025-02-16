@@ -1,0 +1,137 @@
+{
+    "JavaScript_Roadmap": {
+      "Basics": {
+        "1": "Introduction to JavaScript",
+        "2": "Variables (let, const, var)",
+        "3": "Data Types (String, Number, Boolean, Null, Undefined, Symbol, BigInt)",
+        "4": "Operators (Arithmetic, Comparison, Logical, Assignment, Ternary)",
+        "5": "Control Flow (if-else, switch-case)",
+        "6": "Loops (for, while, do-while, forEach)",
+        "7": "Functions (Declaration, Expression, Arrow Functions)",
+        "8": "Scope (Global, Block, Function)",
+        "9": "Closures & Lexical Scope",
+        "10": "Hoisting"
+      },
+      "Intermediate": {
+        "1": "Objects (Properties, Methods, This Keyword)",
+        "2": "Arrays & Array Methods (map, filter, reduce, find, etc.)",
+        "3": "Destructuring (Array & Object Destructuring)",
+        "4": "Template Literals",
+        "5": "Spread & Rest Operators",
+        "6": "Modules (import/export, CommonJS, ES Modules)",
+        "7": "Promises & Async/Await",
+        "8": "Error Handling (try-catch, throw)",
+        "9": "Event Loop & Concurrency (Microtasks & Macrotasks)",
+        "10": "Timers (setTimeout, setInterval, clearTimeout, clearInterval)"
+      },
+      "Advanced": {
+        "1": "Prototype & Prototypal Inheritance",
+        "2": "Classes & OOP (Constructor, Super, Inheritance)",
+        "3": "Higher-Order Functions",
+        "4": "Functional Programming (Pure Functions, Currying, Partial Application, Composition)",
+        "5": "JavaScript Engine & Call Stack",
+        "6": "Execution Context & Memory Management",
+        "7": "WeakMap, WeakSet & Garbage Collection",
+        "8": "Generators & Iterators",
+        "9": "Meta-Programming (Reflect & Proxy)",
+        "10": "Decorators (ESNext Proposal)"
+      },
+      "ES6+ Features": {
+        "1": "Arrow Functions",
+        "2": "Default Parameters",
+        "3": "Rest & Spread Operators",
+        "4": "Destructuring Assignment",
+        "5": "Template Literals",
+        "6": "Enhanced Object Literals",
+        "7": "Modules (import/export)",
+        "8": "Optional Chaining",
+        "9": "Nullish Coalescing Operator",
+        "10": "BigInt & Symbols"
+      },
+      "Modern JavaScript (ES2024)": {
+        "1": "Top-Level Await",
+        "2": "Promise.any()",
+        "3": "WeakRefs & FinalizationRegistry",
+        "4": "Logical Assignment Operators",
+        "5": "Temporal API (Upcoming Date API)",
+        "6": "Array.prototype.toSorted(), toReversed(), toSpliced()",
+        "7": "RegExp Match Indices",
+        "8": "Record & Tuple (Stage 3 Proposal)",
+        "9": "New JavaScript Features from TC39",
+        "10": "Immutable Data Structures"
+      },
+      "Asynchronous JavaScript": {
+        "1": "Callbacks",
+        "2": "Promises (then, catch, finally)",
+        "3": "Async/Await",
+        "4": "Promise.all(), Promise.race(), Promise.allSettled()",
+        "5": "Event Loop & Task Queue",
+        "6": "Web Workers & Service Workers",
+        "7": "Fetch API & AJAX",
+        "8": "AbortController API",
+        "9": "Streaming APIs",
+        "10": "Background Tasks & Scheduling"
+      },
+      "Web APIs & DOM": {
+        "1": "Document Object Model (DOM)",
+        "2": "DOM Manipulation (querySelector, createElement, appendChild, etc.)",
+        "3": "Event Handling & Delegation",
+        "4": "BOM (Browser Object Model)",
+        "5": "LocalStorage, SessionStorage, IndexedDB",
+        "6": "Geolocation API",
+        "7": "WebSockets",
+        "8": "Notifications API",
+        "9": "Clipboard API",
+        "10": "Intersection Observer API"
+      },
+      "Performance Optimization": {
+        "1": "Debouncing & Throttling",
+        "2": "Memory Leaks & Garbage Collection",
+        "3": "Lazy Loading & Code Splitting",
+        "4": "Service Workers & Caching",
+        "5": "WebAssembly & Offloading Heavy Tasks",
+        "6": "Efficient DOM Manipulation",
+        "7": "JavaScript Minification & Compression",
+        "8": "Optimizing Loops & Iterations",
+        "9": "Performance Profiling with DevTools",
+        "10": "Tree Shaking & Dead Code Elimination"
+      },
+      "Security in JavaScript": {
+        "1": "Cross-Site Scripting (XSS)",
+        "2": "Cross-Site Request Forgery (CSRF)",
+        "3": "Clickjacking & Content Security Policy",
+        "4": "CORS (Cross-Origin Resource Sharing)",
+        "5": "Data Sanitization & Escaping",
+        "6": "Secure JavaScript Dependencies",
+        "7": "Avoiding Prototype Pollution",
+        "8": "Secure Cookie Management",
+        "9": "JWT Authentication & Security",
+        "10": "Understanding OWASP Top 10"
+      },
+      "Testing & Debugging": {
+        "1": "Console Methods (console.log, console.error, console.table, etc.)",
+        "2": "Debugging with DevTools",
+        "3": "Unit Testing with Jest",
+        "4": "Integration Testing with Cypress",
+        "5": "End-to-End (E2E) Testing",
+        "6": "Mocking & Spies",
+        "7": "Test-Driven Development (TDD)",
+        "8": "Performance Testing",
+        "9": "Error Handling & Logging",
+        "10": "Continuous Integration (CI/CD) Testing"
+      },
+      "JavaScript in the Real World": {
+        "1": "Node.js & Server-side JavaScript",
+        "2": "Express.js & API Development",
+        "3": "Database Connectivity (MongoDB, PostgreSQL, MySQL)",
+        "4": "Building RESTful & GraphQL APIs",
+        "5": "Authentication & Authorization",
+        "6": "Building Scalable Applications",
+        "7": "Microservices & Serverless Architecture",
+        "8": "Building Progressive Web Apps (PWAs)",
+        "9": "Using TypeScript with JavaScript",
+        "10": "Blockchain & Web3 with JavaScript"
+      }
+    }
+  }
+  

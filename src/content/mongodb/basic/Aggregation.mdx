@@ -1,0 +1,33 @@
+#### `Aggregation Framework`
+
+### 1. What is the MongoDB Aggregation Framework?
+
+The MongoDB Aggregation Framework is a powerful tool for processing and transforming data.
+
+### 2. Explain the key stages of an aggregation pipeline.
+
+Some key stages include:
+
+- `$match`: Filters documents based on a query. Similar to `db.collection.find()`.
+- `$project`: Reshapes documents by adding, removing, or renaming fields. Used for projections and calculated fields.
+- `$group`: Groups documents based on a specified field and performs aggregate calculations (sum, average, min, max, etc.).
+- `$sort`: Sorts documents based on a specified field.
+- `$limit`: Limits the number of documents passed to the next stage.
+- `$skip`: Skips a specified number of documents.
+- `$unwind`: Deconstructs an array field to output a document for each element of the array.
+- `$lookup`: Performs a left outer join to another collection in the same database. Similar to SQL JOINs.
+- `$addFields`: Adds new fields to documents.
+- `$bucket`: Categorizes incoming documents into groups, called buckets, based on their values.
+
+3. **Write an aggregation query to calculate the average score of students in each class.**
+
+```javascript
+db.students.aggregate([
+  {
+    $group: {
+      _id: "$class", // Group by class
+      averageScore: { $avg: "$score" }, // Calculate the average score
+    },
+  },
+]);
+```

@@ -1,0 +1,47 @@
+## What is `useMemo` in React?
+
+**Answer:**
+`useMemo` is a React Hook that **optimizes performance** by **memoizing computed values** to prevent unnecessary recalculations. It helps avoid expensive operations on every render.
+
+### **Key Features:**
+
+- **Caches expensive calculations** and only recalculates when dependencies change.
+- **Improves performance** by avoiding unnecessary re-computations.
+- **Useful when dealing with heavy computations or derived state.**
+
+### **Example:**
+
+```jsx filename="UseMemoExample.js" copy
+import React, { useState, useMemo } from "react";
+
+function ExpensiveCalculationComponent({ num }) {
+  const squaredNumber = useMemo(() => {
+    console.log("Calculating Square...");
+    return num * num;
+  }, [num]);
+
+  return <p>Squared Number: {squaredNumber}</p>;
+}
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [num, setNum] = useState(5);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <ExpensiveCalculationComponent num={num} />
+      <button onClick={() => setNum(num + 1)}>Increase Number</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### **Why Use `useMemo`?**
+
+✅ **Prevents expensive calculations** from running on every render.
+✅ **Improves performance** in cases of heavy computations.
+✅ **Works well when derived state depends on expensive operations.**

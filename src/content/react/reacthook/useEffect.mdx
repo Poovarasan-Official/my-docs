@@ -1,0 +1,124 @@
+## What is `useEffect`?
+
+The `useEffect` Hook in React is used to perform `side effects` in functional components. It runs after the component renders and can handle tasks like:
+
+- Fetching data from an API
+- Subscribing to events
+- Updating the document title(DOM)
+- Managing timers or intervals
+
+## Syntax
+
+```jsx copy
+useEffect(() => {
+  // Side effect logic here
+  return () => {
+    // Cleanup (optional)
+  };
+}, [dependencies]);
+```
+
+### Parameters:
+
+- **First argument:** A function that contains the side effect.
+- **Second argument:** (optional) An array of dependencies that determine when the effect should run.
+
+## Examples
+
+### 1. Running on Every Render
+
+```jsx filename="EveryRender.jsx" {4,6} copy
+import { useEffect } from "react";
+
+function ExampleComponent() {
+  useEffect(() => {
+    console.log("Component rendered!");
+  });
+
+  return <h1>Check the console</h1>;
+}
+```
+
+📌 **Effect runs after every render** because there is no dependency array.
+
+### 2. Running Once (on Mount)
+
+```jsx filename="RunOnce.jsx" {6} copy
+import { useEffect } from "react";
+
+function ExampleComponent() {
+  useEffect(() => {
+    console.log("Component mounted");
+  }, []);
+
+  return <h1>Component Mounted</h1>;
+}
+```
+
+📌 **Effect runs only once** (on mount) because of the **empty dependency array `[]`**.
+
+### 3. Running When Dependencies Change
+
+```jsx filename="RunDependencies.jsx" {8} copy
+import { useState, useEffect } from "react";
+
+function ExampleComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log(`Count updated: ${count}`);
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+📌 **Effect runs when `count` changes** because `count` is in the dependency array.
+
+### 4. Cleanup in `useEffect`
+
+```jsx filename="Cleanup.jsx" {11} copy
+import { useState, useEffect } from "react";
+
+function TimerComponent() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      console.log("Timer cleared");
+    };
+  }, []);
+
+  return <p>Timer: {seconds}s</p>;
+}
+```
+
+📌 **Effect runs once on mount, and cleanup happens on unmount** to avoid memory leaks.
+
+## Summary
+
+| Scenario             | Dependency Array        | When It Runs?               |
+| -------------------- | ----------------------- | --------------------------- |
+| On Every Render      | ❌ Not Provided         | After every render          |
+| On Mount (Once)      | `[]` Empty Array        | Only once when mounted      |
+| On State/Prop Change | `[dependency]`          | When the dependency updates |
+| With Cleanup         | ✅ `return () => {...}` | When the component unmounts |
+
+## When to Use `useEffect`?
+
+- Fetching data from APIs
+- Subscribing to event listeners
+- Managing timers and intervals
+- Updating the document title dynamically
+
+`useEffect` helps **keep functional components side-effect-free** while maintaining necessary effects efficiently! 🚀

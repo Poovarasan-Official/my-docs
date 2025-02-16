@@ -1,0 +1,74 @@
+## Explain `useState` Hook
+
+**Answer:**
+`useState` is a React Hook that allows functional components to `manage state`. It enables components to store and update values dynamically.
+When the state changes, React triggers a re-render, updating the UI automatically with the new state value.
+
+### Common Use Cases:
+
+- **Form Inputs** (Handling input fields dynamically)
+- **Counters** (Managing increment/decrement values)
+- **API Responses** (Storing fetched data temporarily)
+- **Toggle States** (Showing/hiding elements, dropdowns, modals)
+- **Managing Arrays & Objects** (Dynamic list updates)
+
+### Syntax:
+
+```jsx copy
+const [state, setState] = useState(initialValue);
+```
+
+- `initialValue` : The default state value.
+- `state` : Holds the current value.
+- `setState(newValue)` : Updates the value and triggers a re-render.
+
+### Example:
+
+#### **Counter Example**
+
+```jsx filename="Counter.js" {4,9} copy
+import React, { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+#### **Handling Input Fields**
+
+```jsx filename="InputForm.js" {4, 11} copy
+import React, { useState } from "react";
+
+function InputForm() {
+  const [text, setText] = useState("");
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>You typed: {text}</p>
+    </div>
+  );
+}
+
+export default InputForm;
+```
+
+### Why use `useState`?
+
+- Allows functional components to **store dynamic values**.
+- Triggers **re-renders** when the state updates.
+- Provides a **simple API** for state handling.
+- Improves **performance** by only updating relevant parts of the UI.

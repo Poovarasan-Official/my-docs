@@ -1,0 +1,111 @@
+{
+  "JavaScriptRoadmap": {
+    "Basics": {
+      "topics": [
+        "Syntax and Basics",
+        "Variables (var, let, const)",
+        "Data Types (Primitive & Reference)",
+        "Operators (Arithmetic, Logical, Comparison)",
+        "Conditional Statements (if, else, switch)",
+        "Loops (for, while, do-while)",
+        "Functions (Declaration, Expression, Arrow Functions)",
+        "Scope (Global, Local, Block)",
+        "Hoisting",
+        "Strict Mode"
+      ]
+    },
+    "Intermediate": {
+      "topics": [
+        "ES6+ Features (let, const, arrow functions, template literals, spread/rest operators, destructuring)",
+        "Arrays & Objects (Methods, Iteration)",
+        "Higher-Order Functions (map, filter, reduce)",
+        "Closures",
+        "Promises & Async/Await",
+        "Modules (import/export, CommonJS, ES Modules)",
+        "Event Loop & Callback Queue",
+        "Error Handling (try...catch, finally)",
+        "LocalStorage, SessionStorage, Cookies",
+        "Regular Expressions (RegExp)",
+        "DOM Manipulation (querySelector, createElement, events)"
+      ]
+    },
+    "Advanced": {
+      "topics": [
+        "Prototype & Prototypal Inheritance",
+        "this Keyword & Binding",
+        "Call, Apply, Bind Methods",
+        "Generators & Iterators",
+        "WeakMap & WeakSet",
+        "Web APIs (Fetch API, WebSockets, IndexedDB)",
+        "Functional Programming Concepts",
+        "Design Patterns (Factory, Singleton, Observer, etc.)",
+        "JavaScript Performance Optimization",
+        "Memory Management & Garbage Collection",
+        "Meta-programming (Proxy, Reflect)",
+        "Web Workers & Service Workers",
+        "Streams & Buffers",
+        "Modules in Depth (ESM, CJS, UMD, AMD)",
+        "Security (XSS, CSRF, CORS)"
+      ]
+    },
+    "Latest ECMAScript Features": {
+      "topics": [
+        "Optional Chaining (?.)",
+        "Nullish Coalescing (??)",
+        "BigInt",
+        "Top-level Await",
+        "WeakRefs & FinalizationRegistry",
+        "Logical Assignment Operators (&&=, ||=, ??=)",
+        "Temporal API (Upcoming for handling dates/times)",
+        "Record & Tuple (Immutable Data Structures - Stage 3 Proposal)"
+      ]
+    },
+    "Frontend Development": {
+      "topics": [
+        "React.js (Hooks, Context API, Router, Redux)",
+        "Vue.js (Composition API, Pinia, Vue Router)",
+        "Svelte.js",
+        "Next.js (App Router, Server Actions, Middleware)",
+        "Vite (ESBuild, Fast Refresh)"
+      ]
+    },
+    "Backend Development": {
+      "topics": [
+        "Node.js (Event Loop, Streams, Buffers)",
+        "Express.js (Middleware, Routing, Authentication)",
+        "Database (MongoDB, PostgreSQL, MySQL, Firebase)",
+        "Authentication (JWT, OAuth, Passport.js)",
+        "GraphQL (Apollo, Query Language)",
+        "REST API (CRUD, Authentication, Caching, Rate Limiting)"
+      ]
+    },
+    "Testing & Debugging": {
+      "topics": [
+        "Unit Testing (Jest, Mocha, Chai)",
+        "Integration Testing",
+        "E2E Testing (Cypress, Playwright)",
+        "Debugging Tools (Chrome DevTools, VS Code Debugger)"
+      ]
+    },
+    "Build Tools & Package Managers": {
+      "topics": [
+        "Webpack (Loaders, Plugins, Code Splitting)",
+        "Vite (ES Modules, Fast Compilation)",
+        "Babel (Transpiling, Polyfills)",
+        "ESLint & Prettier (Code Linting & Formatting)",
+        "NPM & Yarn (Package Management)"
+      ]
+    },
+    "Performance & Optimization": {
+      "topics": [
+        "Lazy Loading & Code Splitting",
+        "Tree Shaking",
+        "Server-Side Rendering (SSR)",
+        "Client-Side Rendering (CSR)",
+        "Static Site Generation (SSG)",
+        "Progressive Web Apps (PWA)",
+        "Caching Strategies (CDN, Service Workers)"
+      ]
+    }
+  }
+}

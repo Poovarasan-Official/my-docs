@@ -1,0 +1,158 @@
+# MongoDB Interview Questions (Basic to Advanced)
+
+### 1. What is MongoDB?
+
+MongoDB is a NoSQL database that uses a document-oriented data model. It stores data in JSON-like BSON format, making it flexible and scalable.
+
+### 2. How to create a database in MongoDB?
+
+```js
+use myDatabase;
+```
+
+If `myDatabase` does not exist, MongoDB will create it when data is inserted.
+
+### 3. How to create a collection in MongoDB?
+
+```js
+db.createCollection("users");
+```
+
+Collections are created automatically when a document is inserted.
+
+### How do you insert a document?
+
+```js
+db.users.insertOne({ name: "Alice", age: 25, city: "New York" });
+```
+
+### How do you insert multiple documents?
+
+```js
+db.users.insertMany([
+  { name: "Bob", age: 30, city: "Chicago" },
+  { name: "Charlie", age: 28, city: "San Francisco" },
+]);
+```
+
+### How do you retrieve all documents from a collection?
+
+```js
+db.users.find();
+```
+
+## 2. Intermediate Questions
+
+### How do you find a specific document?
+
+```js
+db.users.findOne({ name: "Alice" });
+```
+
+### How do you update a document?
+
+```js
+db.users.updateOne({ name: "Alice" }, { $set: { age: 26 } });
+```
+
+### How do you update multiple documents?
+
+```js
+db.users.updateMany({}, { $set: { status: "active" } });
+```
+
+### How do you delete a document?
+
+```js
+db.users.deleteOne({ name: "Bob" });
+```
+
+### How do you delete multiple documents?
+
+```js
+db.users.deleteMany({ city: "Chicago" });
+```
+
+## 3. Advanced Questions
+
+### How do you use indexing in MongoDB?
+
+```js
+db.users.createIndex({ name: 1 });
+```
+
+Indexes improve query performance.
+
+### How do you perform aggregation in MongoDB?
+
+```js
+db.users.aggregate([
+  { $match: { city: "New York" } },
+  { $group: { _id: "$city", averageAge: { $avg: "$age" } } },
+]);
+```
+
+### How do you handle transactions in MongoDB?
+
+```js
+const session = db.getMongo().startSession();
+session.startTransaction();
+try {
+  session.getDatabase("myDatabase").users.insertOne({ name: "Eve", age: 27 });
+  session.commitTransaction();
+} catch (e) {
+  session.abortTransaction();
+} finally {
+  session.endSession();
+}
+```
+
+### How do you implement replication in MongoDB?
+
+MongoDB uses replica sets for replication.
+
+```js
+rs.initiate({
+  _id: "myReplicaSet",
+  members: [
+    { _id: 0, host: "localhost:27017" },
+    { _id: 1, host: "localhost:27018" },
+    { _id: 2, host: "localhost:27019" },
+  ],
+});
+```
+
+### How do you implement sharding in MongoDB?
+
+```js
+sh.addShard("shard1/localhost:27018");
+sh.addShard("shard2/localhost:27019");
+sh.enableSharding("myDatabase");
+sh.shardCollection("myDatabase.users", { city: 1 });
+```
+
+## 4. Expert-Level Questions
+
+### What is the difference between `find()` and `aggregate()`?
+
+`find()` retrieves documents as they are stored, while `aggregate()` processes data using multiple stages like filtering, grouping, and sorting.
+
+### How do you optimize MongoDB performance?
+
+- Use indexes to speed up queries.
+- Use proper schema design.
+- Avoid unnecessary indexes.
+- Use aggregation pipelines efficiently.
+- Monitor query performance using `explain()`.
+
+### How do you secure a MongoDB database?
+
+- Enable authentication.
+- Use role-based access control (RBAC).
+- Use TLS/SSL for encrypted connections.
+- Limit network exposure.
+- Regularly back up data.
+
+---
+
+This guide covers essential MongoDB interview questions with practical examples. Mastering these will help you ace any MongoDB-related interview!

@@ -1,0 +1,106 @@
+## What is `useReducer`?
+`useReducer` is a React Hook that is an alternative to `useState` for managing complex state logic. It is particularly useful when the next state depends on the previous state or when handling multiple state transitions.
+
+### **Key Features:**
+- Manages complex state logic in functional components.
+- Useful when state transitions involve multiple conditions.
+- Works similarly to Redux reducers, using a reducer function.
+
+## **Syntax:**
+```jsx
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+- **`state`**: The current state.
+- **`dispatch`**: Function to trigger state changes.
+- **`reducer`**: A function that takes the current state and an action and returns a new state.
+- **`initialState`**: The initial value of the state.
+
+## **Example 1: Counter with `useReducer`**
+```jsx
+import React, { useReducer } from "react";
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    case "reset":
+      return initialState;
+    default:
+      throw new Error("Unknown action type");
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      <h2>Count: {state.count}</h2>
+      <button onClick={() => dispatch({ type: "increment" })}>Increment</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>Decrement</button>
+      <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+## **Example 2: Managing a To-Do List**
+```jsx
+import React, { useReducer, useState } from "react";
+
+const initialState = [];
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "add":
+      return [...state, { id: Date.now(), text: action.payload }];
+    case "remove":
+      return state.filter((todo) => todo.id !== action.payload);
+    default:
+      return state;
+  }
+}
+
+function TodoApp() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [text, setText] = useState("");
+
+  return (
+    <div>
+      <h2>To-Do List</h2>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button onClick={() => dispatch({ type: "add", payload: text })}>Add</button>
+      <ul>
+        {state.map((todo) => (
+          <li key={todo.id}>
+            {todo.text}
+            <button onClick={() => dispatch({ type: "remove", payload: todo.id })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default TodoApp;
+```
+
+## **When to Use `useReducer`?**
+- When state transitions involve **multiple sub-states**.
+- When **state updates depend on previous states**.
+- When the state logic is **too complex** for `useState`.
+- When you need a **Redux-like** state management approach in a component.
+
+Using `useReducer` helps keep your logic structured, especially in large applications with multiple state changes. 🚀

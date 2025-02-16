@@ -1,0 +1,73 @@
+## What is `useContext`?
+
+`useContext` is a React Hook that allows functional components to consume values from a **React Context API** without needing to wrap components in a `Consumer`.
+
+## Why Use `useContext`?
+
+- **Avoids prop drilling**: Access global values anywhere in the component tree.
+- **Simplifies state sharing**: Ideal for themes, authentication, or language settings.
+- **Makes code cleaner** by replacing higher-order components (HOC) and render props.
+
+## Syntax
+
+```jsx
+const contextValue = useContext(MyContext);
+```
+
+## Example: Using `useContext` for Theme Management
+
+### 1. Create Context
+
+```jsx filename="ThemeContext.js" copy
+import { createContext } from "react";
+
+export const ThemeContext = createContext("light");
+```
+
+### 2. Provide Context in Parent Component
+
+```jsx filename="App.js" copy
+import React, { useState } from "react";
+import { ThemeContext } from "./ThemeContext";
+import ThemeToggle from "./ThemeToggle";
+
+function App() {
+  const [theme, setTheme] = useState("light");
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ThemeToggle />
+    </ThemeContext.Provider>
+  );
+}
+
+export default App;
+```
+
+### 3. Consume Context in Child Component
+
+```jsx filename="ThemeToggle.js" copy
+import React, { useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
+
+function ThemeToggle() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return (
+    <div>
+      <p>Current Theme: {theme}</p>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+
+export default ThemeToggle;
+```
+
+## Key Takeaways
+
+✅ **Avoids prop drilling** by providing direct access to context values.\
+✅ **Enhances readability** by simplifying state sharing across components.\
+✅ **Ideal for global state management** like themes, authentication, and language settings.
