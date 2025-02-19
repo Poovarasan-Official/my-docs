@@ -28,3 +28,441 @@ V8 is Google’s high-performance JavaScript engine used in Chrome. Node.js uses
 
 `Synchronous`: Code executes line by line, blocking further execution.\
 `Asynchronous`: Code runs without waiting for previous operations to complete.
+
+#### 4. What is Middleware in Node.js?
+
+Middleware functions in Node.js are functions that have access to the request (`req`), response (`res`), and the `next` function in the request-response cycle.
+
+###### Types of Middleware
+
+1. **Application-Level Middleware** (Like the logging middleware above)
+2. **Router-Level Middleware** (Applied to specific routes using `express.Router()`)
+3. **Built-in Middleware** (Like `express.json()` for parsing JSON)
+4. **Error-Handling Middleware** (Handles errors using `err, req, res, next`)
+
+```js filename="app.js" copy
+const express = require("express");
+const app = express();
+
+// Middleware function
+const loggerMiddleware = (req, res, next) => {
+  console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
+  next(); // Pass control to the next middleware
+};
+
+// Apply middleware
+app.use(loggerMiddleware);
+
+app.get("/", (req, res) => {
+  res.send("Hello, Middleware!");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+```
+
+#### 5. What is the difference between authentication and authorization?
+
+**Answer:**
+
+- **Authentication**: Verifies **who the user is** (identity verification).
+- **Authorization**: Determines **what the user can do** (access control).
+
+Authentication and Authorization are two crucial security concepts in web applications. Although they are related, they serve different purposes.
+
+### **Key Differences**
+
+| Feature            | Authentication                | Authorization                |
+| ------------------ | ----------------------------- | ---------------------------- |
+| **Definition**     | Verifies identity             | Determines permissions       |
+| **Purpose**        | Confirms if a user is genuine | Controls access to resources |
+| **When it occurs** | Before authorization          | After authentication         |
+| **Example**        | Logging in with a password    | Accessing admin-only pages   |
+
+### **Authentication**
+
+Authentication verifies **who** the user is. It ensures that the person trying to access a system is who they claim to be.
+
+**Example:**
+
+- Logging into a website using a username and password.
+- Using an OTP (One-Time Password) for identity verification.
+- Signing in with Google or Facebook.
+
+```js filename="authentication.js" copy
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+// Dummy authentication middleware
+const authenticateUser = (req, res, next) => {
+  const { username, password } = req.body;
+
+  if (username === "admin" && password === "password123") {
+    console.log("User authenticated successfully!");
+    next(); // Proceed to the next middleware or route
+  } else {
+    res.status(401).json({ message: "Authentication failed!" });
+  }
+};
+
+app.post("/login", authenticateUser, (req, res) => {
+  res.json({ message: "Welcome, you are authenticated!" });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+```
+
+#### 6. What are modules in Node.js? How do you create and use them?
+
+Modules in Node.js are reusable pieces of code that can be imported and exported across different files. They help in structuring applications by breaking them into smaller, maintainable parts.
+
+##### Node.js has three types of modules:
+
+1. **Built-in Modules** - Predefined modules like `fs`, `http`, `path`.
+2. **Custom Modules** - User-defined modules.
+3. **Third-party Modules** - Installed via npm, like `express`, `mongoose`.
+
+#### 1. Using Built-in Modules
+
+Node.js provides many built-in modules like fs, path, and http. Example:
+
+```js copy
+const fs = require("fs");
+
+// Writing to a file
+fs.writeFileSync("example.txt", "Hello, Node.js!");
+console.log("File created successfully.");
+```
+
+#### 2. Creating a Custom Module
+
+create a module by exporting functions, objects, or variables from a separate file.
+
+```js filename="math.js" copy
+// Define a module with functions
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+
+// Export functions
+module.exports = { add, subtract };
+```
+
+> [!NOTE]
+>
+> - Modules help in code reusability and maintainability.
+
+- Custom Modules are created using module.exports and imported using require().
+- Built-in Modules provide useful utilities.
+- Third-party Modules extend functionality using npm.
+
+---
+
+#### 7. What are some core modules in Node.js?
+
+Core modules in Node.js are built-in modules provided by Node.js that do not require installation. They help perform essential tasks like working with the filesystem, creating servers, handling streams, and more.
+
+### **Common Core Modules in Node.js**
+
+| Module     | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| **fs**     | Handles file system operations (read/write files).       |
+| **http**   | Creates HTTP servers and handles requests.               |
+| **path**   | Works with file and directory paths.                     |
+| **os**     | Provides system-related information.                     |
+| **events** | Implements event-driven programming.                     |
+| **util**   | Provides utilities for debugging and inspecting objects. |
+| **crypto** | Handles encryption and security functions.               |
+
+### **1. `fs` (File System) Module**
+
+Used to read, write, and manage files.
+
+```js filename="fs-example.js" copy
+const fs = require("fs");
+
+// Write to a file
+fs.writeFileSync("example.txt", "Hello, Node.js!");
+console.log("File created successfully.");
+
+// Read from a file
+const data = fs.readFileSync("example.txt", "utf8");
+console.log("File Content:", data);
+```
+
+---
+
+#### 8. What is the difference between require() and import?
+
+In Node.js, both `require()` and `import` are used to load modules, but they have significant differences in how they work.
+
+### **Key Differences**
+
+| Feature               | `require()` (CommonJS)             | `import` (ES Modules)                     |
+| --------------------- | ---------------------------------- | ----------------------------------------- |
+| **Module Type**       | CommonJS                           | ES Modules (ESM)                          |
+| **Syntax**            | `const module = require('module')` | `import module from 'module'`             |
+| **Execution**         | Synchronous (Blocking)             | Asynchronous (Non-blocking)               |
+| **File Extension**    | `.js` (default in Node.js)         | `.mjs` or `.js` (with `"type": "module"`) |
+| **Top-Level `await`** | ❌ Not supported                   | ✅ Supported                              |
+| **Browser Support**   | ❌ No native browser support       | ✅ Works in modern browsers               |
+
+Conclusion
+
+- require() is used for CommonJS and works synchronously.
+- import is used for ES Modules and supports asynchronous loading
+- Node.js supports both, but ES Modules (import) is the future.
+
+🚀 For modern projects, consider using ES Modules (import) for better performance and browser compatibility!
+
+🚀 _Use `import` for modern applications to leverage ESM features!_
+
+---
+
+#### 9. Explain the event loop in Node.js. How does it work?
+
+The **event loop** is a core mechanism in Node.js that allows it to handle non-blocking, asynchronous operations efficiently. It enables Node.js to perform I/O operations (reading files, network requests, database queries) without blocking the execution of other code.
+
+Node.js uses **single-threaded, event-driven architecture** to handle multiple tasks asynchronously.
+
+---
+
+##### **How Does the Event Loop Work?**
+
+The event loop consists of **six phases**, and it continuously cycles through them to execute tasks.
+
+1. **Timers Phase** - Executes callbacks scheduled by `setTimeout()` and `setInterval()`.
+2. **Pending Callbacks Phase** - Executes I/O callbacks deferred from previous operations.
+3. **Idle/Prepare Phase** (Internal) - Used internally by Node.js, not relevant for developers.
+4. **Poll Phase** - Retrieves new I/O events and executes related callbacks.
+5. **Check Phase** - Executes callbacks from `setImmediate()`.
+6. **Close Callbacks Phase** - Executes callbacks for closed resources (e.g., `socket.on('close', ...)`).
+
+---
+
+##### **Event Loop Flow**
+
+1. Executes **synchronous code** (top-level code).
+2. Processes **pending timers** (`setTimeout`, `setInterval`).
+3. Executes **I/O tasks** (file reading, network requests).
+4. Runs `setImmediate()` callbacks.
+5. Executes **close events** (e.g., database connections).
+6. Repeats the cycle.
+
+---
+
+##### **Example: Understanding the Event Loop**
+
+```js filename="event-loop-example.js" copy
+console.log("Start"); // Runs first
+
+setTimeout(() => {
+  console.log("Timeout Callback"); // Runs after poll phase
+}, 0);
+
+setImmediate(() => {
+  console.log("Immediate Callback"); // Runs after the poll phase
+});
+
+Promise.resolve().then(() => console.log("Promise Callback")); // Runs before next event loop cycle
+
+console.log("End"); // Runs second
+```
+
+---
+
+#### 10. Explain the concept of streams in Node.js. What are the different types of streams?
+
+Streams in Node.js are used to handle **large amounts of data** efficiently by reading or writing it **in chunks** instead of loading everything into memory at once. This improves **performance and scalability**, especially for I/O operations like file handling, network requests, and data processing.
+
+Streams are **event-driven** and extend the `EventEmitter` class, allowing developers to listen for different stream-related events (`data`, `end`, `error`, etc.).
+
+---
+
+##### **Types of Streams in Node.js**
+
+Node.js provides **four types of streams**:
+
+| Type          | Description                                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| **Readable**  | Used to read data (e.g., reading files, HTTP requests).                                              |
+| **Writable**  | Used to write data (e.g., writing to a file, sending HTTP responses).                                |
+| **Duplex**    | Can read and write simultaneously (e.g., sockets, network communications).                           |
+| **Transform** | A special type of Duplex stream that modifies data while processing (e.g., compression, encryption). |
+
+---
+
+##### **1. Readable Stream (Reading Data)**
+
+Used to **read data chunk by chunk** instead of loading it all at once.
+
+##### **Example: Reading a File Stream**
+
+```js filename="readable-stream.js" copy
+const fs = require("fs");
+
+const readableStream = fs.createReadStream("example.txt", { encoding: "utf8" });
+
+readableStream.on("data", (chunk) => {
+  console.log("Received chunk:", chunk);
+});
+
+readableStream.on("end", () => {
+  console.log("Finished reading file.");
+});
+```
+
+##### Why Use Streams?
+
+✅ Efficient Memory Usage – Processes data in chunks, reducing memory consumption.\
+✅ Faster Performance – No need to wait for the entire file to load.\
+✅ Scalability – Handles large files and network data efficiently.
+
+🚀 Streams are a powerful feature in Node.js, enabling efficient handling of large data flows in applications like file processing, APIs, and real-time data streaming!
+
+#### 11. What are Buffers in Node.js?
+
+A **Buffer** in Node.js is a **temporary storage area** for handling binary data. Buffers are mainly used when dealing with raw binary data, such as:
+
+- **File system operations**
+- **Networking (TCP streams, WebSockets)**
+- **Data compression (zlib, gzip)**
+- **Cryptography**
+
+Since **JavaScript (JS) strings are UTF-16 encoded**, Buffers provide a way to handle raw binary data efficiently.
+
+---
+
+##### **Creating a Buffer**
+
+##### **1. Allocating a New Buffer**
+
+```js filename="buffer-alloc.js" copy
+const buffer = Buffer.alloc(10); // Creates a buffer of 10 bytes
+console.log(buffer); // <Buffer 00 00 00 00 00 00 00 00 00 00>
+```
+
+---
+
+#### 12. What is the role of the `Buffer` class in Node.js?
+
+#### 13. Explain the difference between `process.nextTick()` and `setImmediate()` in Node.js.
+
+#### 14. What is the difference between `spawn`, `exec`, and `fork` in the child_process module?
+
+#### 15. What is the difference between session-based and token-based authentication?
+
+##### **Key Differences Between Session-Based and Token-Based Authentication**
+
+| Feature                    | Session-Based Authentication                                               | Token-Based Authentication                                                                           |
+| -------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Storage**                | Stored on the **server** (memory/database)                                 | Stored on the **client** (localStorage, cookies, or headers)                                         |
+| **Scalability**            | Less scalable (server must manage sessions)                                | Highly scalable (stateless, works well with microservices & APIs)                                    |
+| **Security**               | Vulnerable to **session hijacking** & **CSRF** attacks                     | Vulnerable to **token theft** if not stored securely                                                 |
+| **Performance**            | Server load increases with more users                                      | Faster as the server does not store session data                                                     |
+| **Authentication Process** | User logs in → Server creates a session → Sends a session ID to the client | User logs in → Server issues a **JWT** (JSON Web Token) → Client stores & sends it with each request |
+| **Data Validation**        | Session ID is validated by the server                                      | JWT is **self-contained** and verified using a secret key                                            |
+| **State Management**       | **Stateful** (server maintains user session)                               | **Stateless** (no need to track sessions on the server)                                              |
+| **Usage**                  | Best for traditional web apps requiring frequent authentication            | Best for APIs, mobile apps, and distributed systems                                                  |
+
+#### 16. What are JWT tokens, and how are they used in Node.js??
+
+#### 17. What is `helmet`, and why should it be used in Express.js?
+
+[`helmet`](https://www.npmjs.com/package/helmet) is a **security middleware** for **Express.js** that helps protect web applications by setting various HTTP headers. It prevents common security vulnerabilities such as **cross-site scripting (XSS), clickjacking, MIME sniffing, and more**.
+
+### Why Use `helmet` in Express.js?
+
+✅ Prevents Cross-Site Scripting (XSS)\
+✅ Protects Against Clickjacking Attacks\
+✅ Disables Browser Sniffing\
+✅ Adds Security Headers Automatically\
+✅ Improves Overall Application Security
+
+---
+
+##### **Installing `helmet`**
+
+To use `helmet` in your Express.js application, install it via npm:
+
+```bash filename="terminal" copy
+npm install helmet
+```
+
+##### Key Features of `helmet` in Express.js
+
+`helmet` provides multiple security enhancements by setting HTTP headers. The table below highlights its key features:
+
+| Feature                                 | Description                                                      |
+| --------------------------------------- | ---------------------------------------------------------------- |
+| **Content Security Policy (CSP)**       | Prevents XSS attacks by restricting content sources.             |
+| **Frameguard**                          | Protects against clickjacking by blocking iframe embedding.      |
+| **XSS Filter**                          | Enables browser’s built-in XSS protection.                       |
+| **NoSniff**                             | Prevents MIME-type sniffing attacks.                             |
+| **HSTS (Strict Transport Security)**    | Enforces HTTPS connections to prevent man-in-the-middle attacks. |
+| **Referrer Policy**                     | Controls the `Referrer` header to enhance user privacy.          |
+| **Expect-CT**                           | Helps detect and enforce Certificate Transparency for HTTPS.     |
+| **DNS Prefetch Control**                | Prevents browsers from performing DNS prefetching.               |
+| **Hide X-Powered-By**                   | Removes the `X-Powered-By` header to hide server details.        |
+| **Cross-Origin Resource Policy (CORP)** | Restricts resource sharing across different origins.             |
+
+---
+
+#### 18. How do you handle file uploads in Express.js using `multer`?
+
+#### 19. How to optimize a Node.js application for performance?
+
+#### 20. What is the difference between PM2 and Nodemon?
+
+`PM2` and `Nodemon` are both tools used to manage Node.js applications, but they serve different purposes.
+
+### **Key Differences Between PM2 and Nodemon**
+
+| Feature                  | PM2                                                            | Nodemon                                                       |
+| ------------------------ | -------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Purpose**              | Process manager for production environments.                   | Automatically restarts Node.js apps during development.       |
+| **Use Case**             | Best for running and managing apps in production.              | Best for development to auto-restart on file changes.         |
+| **Automatic Restart**    | Restarts crashed apps automatically.                           | Restarts the app only when file changes are detected.         |
+| **Clustering Support**   | Supports multi-instance clustering for performance.            | Does not support clustering.                                  |
+| **Logging & Monitoring** | Provides built-in logging, monitoring, and process management. | No advanced logging or monitoring.                            |
+| **Daemon Mode**          | Runs apps in the background (as a service).                    | Runs in the foreground and stops when the terminal is closed. |
+| **Load Balancing**       | Supports load balancing across CPU cores.                      | Does not support load balancing.                              |
+| **Installation Command** | `npm install -g pm2`                                           | `npm install -g nodemon`                                      |
+
+---
+
+##### When to Use PM2?
+
+✅ For running Node.js applications in production\
+✅ If you need auto-restart on crashes\
+✅ When load balancing & clustering are required\
+✅ If you need logs, monitoring, and process management
+
+##### Example: Running a Node.js App with PM2
+
+```bash filename="terminal" copy
+pm2 start app.js --name "my-app"
+pm2 list  # View running processes
+pm2 logs  # Check logs
+pm2 stop my-app  # Stop the app
+```
+
+#### 21. What is the purpose of the package.json file?
+
+#### 22. Purpose of Controllers, Services, and Utils in Node.js?
+
+In a well-structured Node.js application, `controllers`, `services`, and `utilities` help in maintaining clean and scalable code. Below is a breakdown of their purpose and responsibilities.
+
+### Key Differences
+
+| `Component`         | `Purpose`                            | `Responsibilities`                                                      |
+| ------------------- | ------------------------------------ | ----------------------------------------------------------------------- |
+| `Controllers`       | Handle HTTP requests and responses.  | Process user requests, call services, and return responses.             |
+| `Services`          | Contain business logic.              | Implement application logic and interact with models/databases.         |
+| `Utils` (Utilities) | Helper functions and reusable logic. | Perform small reusable tasks like formatting, validation, logging, etc. |
+
+---
